@@ -1,32 +1,12 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
-import { Home, SignIn, Header, Protected, Error } from "../components/index";
+import { Protected, Error } from '../components';
 
 const routesConfig = [
   {
-    exact: true,
-    path: "/",
-    component: () => <Redirect to="/signin" />
+    path: '/protected',
+    component: Protected
   },
   {
-    path: "/home",
-    component: Home
-  },
-  {
-    path: "/header",
-    component: Header
-  },
-  {
-    path: "/signin",
-    component: SignIn
-  },
-  {
-    path: "/protected",
-    component: () =>
-      localStorage.getItem("token") ? <Protected /> : <Redirect to="/signin" />
-  },
-  {
-    path: "*",
+    path: '*',
     component: Error
   }
 ];

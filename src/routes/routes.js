@@ -1,34 +1,35 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import routes from "./routesConfig";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import privateRoutes from './routesConfig';
+import { SignIn } from '../components';
 
-export default function Routes() {
+const Routes = ({ isAuthenticated }) => {
   return (
-    <Router>
+    <BrowserRouter>
       <Switch>
-        {routes.map((route, index) => (
+        <Route exact path="/login" component={SignIn} />
+        {privateRoutes.map((route, index) => (
           <Route
             key={index}
             path={route.path}
             exact={route.exact}
-            // render={props =>
-            //   localStorage.getItem("token") ? (
-            //     <route.component {...props} routes={route.routes} />
-            //   ) : (
-            //     <Redirect to="/signin" />
-            //   )
-            // }
             render={props =>
-              route.render ? (
-                route.render(props)
+              isAuthenticated ? (
+                <route.component {...props} />
               ) : (
-                <route.component {...props} route={route} />
+                <Redirect to="/login" />
               )
             }
-            // strict={route.strict}
           />
         ))}
       </Switch>
-    </Router>
+    </BrowserRouter>
   );
-}
+};
+
+Routes.propTypes = {
+  isAuthenticated: PropTypes.bool
+};
+
+export default Routes;

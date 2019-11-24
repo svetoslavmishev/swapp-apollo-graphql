@@ -1,7 +1,13 @@
-import React from "react";
+import React from 'react';
+import { Header } from '../index';
 
 const Protected = () => {
-  return <div>Hello from Protected route</div>;
+  return (
+    <div>
+      <Header />
+      Hello from Protected route
+    </div>
+  );
 };
 
 export default Protected;
