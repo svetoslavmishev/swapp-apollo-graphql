@@ -1,5 +1,5 @@
 {
-  "name": "swapp-apollo-auth",
+  "name": "swapp-apollo-graphql",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

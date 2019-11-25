@@ -1,65 +1,96 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext } from 'react';
+import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import {
   Container,
   FormControl,
-  InputLabel,
+  FormLabel,
   Input,
-  FormHelperText,
   Paper,
-  Button
-} from "@material-ui/core";
-// import { useMutation } from "@apollo/react-hooks";
-// import { SIGN_IN } from "../SignIn/SignIn";
+  Button,
+  LinearProgress
+} from '@material-ui/core';
 
-function SignIn() {
-  const [fields, setFields] = useState({
-    email: "",
-    password: ""
+import { SIGN_IN } from '../../client/queries';
+import { ThemeContext } from '../../themeContext';
+import styles from './SignInStyles';
+
+function SignIn({ history }) {
+  // email: 'demo@st6.io'
+  // password: 'demo1234'
+
+  const { currentTheme } = useContext(ThemeContext);
+  const classes = styles({ currentTheme });
+  const [fields, setFields] = useState({ email: '', password: '' });
+  const client = useApolloClient();
+  const [signIn, { loading, error }] = useMutation(SIGN_IN, {
+    onCompleted({ signIn: { token } }) {
+      localStorage.setItem('token', token);
+      client.writeData({ data: { isAuthenticated: true } });
+      history.push('/protected');
+      setFields({ email: '', password: '' });
+    }
   });
-  //const [signIn, { data }] = useMutation(SIGN_IN);
 
-  const handleChange = useCallback(
-    ({ target: { value, name } }) => {
-      setFields({ ...fields, [name]: value });
-    },
-    [fields]
-  );
-
-  const handleSubmit = () => {
-    console.log(fields);
-    setFields({ email: "", password: "" });
+  const handleChange = ({ target: { value, name } }) => {
+    setFields({ ...fields, [name]: value });
   };
 
+  const handleSubmit = ev => {
+    ev.preventDefault();
+    signIn({ variables: { ...fields } });
+    setFields({ email: '', password: '' });
+  };
+
+  if (loading)
+    return (
+      <LinearProgress
+        classes={{
+          bar: classes.progress
+        }}
+      />
+    );
+
+  const hasError = error && error.message ? true : false;
+
   return (
-    <Container maxWidth="sm">
-      <Paper style={{ display: "flex", flexDirection: "column" }}>
-        <FormControl>
-          <InputLabel htmlFor="component-helper">Email</InputLabel>
+    <Container maxWidth="xs">
+      <Paper
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          border: '1px solid red',
+          padding: 28
+        }}
+      >
+        <FormControl error={hasError}>
+          {hasError && (
+            <FormLabel component="legend">{error.message}</FormLabel>
+          )}
           <Input
-            id="component-helper"
+            id="email-component-helper"
+            type="text"
             name="email"
             value={fields.email}
             onChange={handleChange}
             aria-describedby="component-helper-text"
+            placeholder="email"
           />
-          <FormHelperText id="component-helper-text">
-            Some important helper text
-          </FormHelperText>
-        </FormControl>
-        <FormControl>
-          <InputLabel htmlFor="component-helper">Password</InputLabel>
           <Input
-            id="component-helper"
+            id="password-component-helper"
+            type="password"
             name="password"
             value={fields.password}
             onChange={handleChange}
             aria-describedby="component-helper-text"
+            placeholder="password"
           />
-          <FormHelperText id="component-helper-text">
-            Some important helper text
-          </FormHelperText>
         </FormControl>
-        <Button variant="contained" color="default" onClick={handleSubmit}>
+        <Button
+          className={`${classes.solidButton} ${classes.outlineButton}`}
+          variant="contained"
+          color="default"
+          onClick={handleSubmit}
+        >
           Submit
         </Button>
       </Paper>

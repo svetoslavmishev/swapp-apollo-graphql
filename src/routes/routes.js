@@ -8,7 +8,7 @@ const Routes = ({ isAuthenticated }) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/login" component={SignIn} />
+        <Route exact path="/signin" component={SignIn} />
         {privateRoutes.map((route, index) => (
           <Route
             key={index}
@@ -18,7 +18,7 @@ const Routes = ({ isAuthenticated }) => {
               isAuthenticated ? (
                 <route.component {...props} />
               ) : (
-                <Redirect to="/login" />
+                <Redirect to="/signin" />
               )
             }
           />

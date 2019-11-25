@@ -4,7 +4,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import authLink from './authLink';
 import httpLink from './httpLink';
-import typeDefs from './local';
+import { typeDefs } from './local';
 
 const cache = new InMemoryCache();
 const client = new ApolloClient({
