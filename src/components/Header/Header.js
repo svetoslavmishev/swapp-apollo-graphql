@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
+import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Button, Typography } from '@material-ui/core';
 import styles from './HeaderStyles';
 import { ThemeContext } from '../../themeContext';
 
-const Header = () => {
+const Header = ({ history }) => {
   const { currentTheme, toggleTheme } = useContext(ThemeContext);
   const client = useApolloClient();
   const classes = styles({ currentTheme });
@@ -29,8 +30,8 @@ const Header = () => {
           }}
           className={classes.toolBarLeft}
         >
-          <Typography>Episodes</Typography>
-          <Typography>Characters</Typography>
+          <Link to={'/episodes'}>Episodes</Link>
+          <Link to={'/characters'}>Characters</Link>
           <Button color="inherit" onClick={handleLogout}>
             Logout
           </Button>

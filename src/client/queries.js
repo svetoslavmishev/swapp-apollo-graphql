@@ -13,3 +13,18 @@ export const SIGN_IN = gql`
     }
   }
 `;
+
+export const ALL_EPISODES = gql`
+  query allEpisodes($first: Int!) {
+    allEpisodes(first: $first) {
+      edges {
+        node {
+          id
+          image
+          title
+          openingCrawl
+        }
+      }
+    }
+  }
+`;

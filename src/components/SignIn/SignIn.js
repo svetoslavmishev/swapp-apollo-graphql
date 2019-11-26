@@ -26,7 +26,7 @@ function SignIn({ history }) {
     onCompleted({ signIn: { token } }) {
       localStorage.setItem('token', token);
       client.writeData({ data: { isAuthenticated: true } });
-      history.push('/protected');
+      history.push('/episodes');
       setFields({ email: '', password: '' });
     }
   });

@@ -1,10 +1,20 @@
-import { SignIn, Protected, Error } from '../components';
+import { SignIn, Protected, Episodes, Characters, Error } from '../components';
 
 const routesConfig = [
   {
     path: '/signin',
     exact: true,
     component: SignIn
+  },
+  {
+    path: '/episodes',
+    exact: true,
+    component: Episodes
+  },
+  {
+    path: '/characters',
+    exact: true,
+    component: Characters
   },
   {
     path: '/protected',
