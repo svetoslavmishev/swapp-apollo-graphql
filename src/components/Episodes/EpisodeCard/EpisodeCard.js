@@ -1,10 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import { useHistory } from 'react-router-dom';
+import {
+  Card,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+  Typography
+} from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -13,15 +16,19 @@ const useStyles = makeStyles(theme => ({
   },
   media: {
     height: 0,
-    paddingTop: '75%'
+    paddingTop: '100%'
   }
 }));
 
-const EpisodeCard = ({ episode: { image, title, openingCrawl } }) => {
+const EpisodeCard = ({ episode: { id, image, title, openingCrawl } }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
-    <Card className={classes.card}>
+    <Card
+      className={classes.card}
+      onClick={() => history.push(`episodes/${id}`)}
+    >
       <CardActionArea>
         <CardMedia className={classes.media} image={image} title={title} />
         <CardContent>

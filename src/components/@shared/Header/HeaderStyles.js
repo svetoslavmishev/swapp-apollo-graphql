@@ -6,9 +6,17 @@ const styles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    cursor: 'pointer',
-    '&:div > p': {
-      background: 'red'
+    cursor: 'pointer'
+  },
+  toolBarLeft: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    width: '100%',
+    '& a': {
+      padding: 8,
+      textDecoration: 'none',
+      color: ({ currentTheme }) => theme.palette[currentTheme].AppBar.fontColor
     }
   }
 }));

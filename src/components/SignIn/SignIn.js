@@ -10,7 +10,7 @@ import {
   LinearProgress
 } from '@material-ui/core';
 
-import { SIGN_IN } from '../../client/queries';
+import { SIGN_IN } from '../../queries/queries';
 import { ThemeContext } from '../../themeContext';
 import styles from './SignInStyles';
 
@@ -20,7 +20,10 @@ function SignIn({ history }) {
 
   const { currentTheme } = useContext(ThemeContext);
   const classes = styles({ currentTheme });
-  const [fields, setFields] = useState({ email: '', password: '' });
+  const [fields, setFields] = useState({
+    email: 'demo@st6.io',
+    password: 'demo1234'
+  });
   const client = useApolloClient();
   const [signIn, { loading, error }] = useMutation(SIGN_IN, {
     onCompleted({ signIn: { token } }) {

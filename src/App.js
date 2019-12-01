@@ -4,7 +4,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 
 import { ThemeContext, themes } from './themeContext';
 import Routes from './routes/routes';
-import { AUTH } from './client/queries';
+import { AUTH } from './queries/queries';
 
 const App = () => {
   const [currentTheme, setCurrentTheme] = useState('dark');

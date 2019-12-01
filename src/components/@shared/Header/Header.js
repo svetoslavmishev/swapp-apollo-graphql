@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Button, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Button } from '@material-ui/core';
 import styles from './HeaderStyles';
-import { ThemeContext } from '../../themeContext';
+import { ThemeContext } from '../../../themeContext';
 
-const Header = ({ history }) => {
+const Header = () => {
   const { currentTheme, toggleTheme } = useContext(ThemeContext);
   const client = useApolloClient();
   const classes = styles({ currentTheme });
@@ -21,15 +21,7 @@ const Header = ({ history }) => {
         <div className={classes.toolBar} onClick={toggleTheme}>
           SWAPP
         </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            width: '100%'
-          }}
-          className={classes.toolBarLeft}
-        >
+        <div className={classes.toolBarLeft}>
           <Link to={'/episodes'}>Episodes</Link>
           <Link to={'/characters'}>Characters</Link>
           <Button color="inherit" onClick={handleLogout}>
