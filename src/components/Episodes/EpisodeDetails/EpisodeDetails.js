@@ -51,7 +51,7 @@ const EpisodeDetails = () => {
 
   if (loading) return <div>Loading...</div>;
   if (error) return null;
-  console.log(data);
+
   return (
     <div>
       <Header />

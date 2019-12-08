@@ -5,6 +5,8 @@ import {
   Episodes,
   EpisodeDetails,
   Characters,
+  CharProfile,
+  Starship,
   Error
 } from '../components';
 import { Redirect } from 'react-router-dom';
@@ -34,6 +36,16 @@ const routesConfig = [
     path: '/characters',
     exact: true,
     component: Characters
+  },
+  {
+    path: '/characters/:characterId',
+    exact: true,
+    component: CharProfile
+  },
+  {
+    path: '/starships/:starshipId',
+    exact: true,
+    component: Starship
   },
   {
     path: '/protected',

@@ -17,6 +17,9 @@ const styles = makeStyles(theme => ({
       padding: 8,
       textDecoration: 'none',
       color: ({ currentTheme }) => theme.palette[currentTheme].AppBar.fontColor
+    },
+    '&:hover svg': {
+      cursor: 'pointer'
     }
   }
 }));

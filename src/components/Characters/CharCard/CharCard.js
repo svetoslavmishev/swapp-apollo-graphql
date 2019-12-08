@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -25,12 +26,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CharCard = ({ chars: { image, name } }) => {
+const CharCard = ({ chars: { id, image, name } }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
+      <Paper
+        className={classes.paper}
+        onClick={() => history.push(`/characters/${id}`)}
+      >
         <Grid container spacing={2}>
           <Grid item>
             <ButtonBase className={classes.image}>

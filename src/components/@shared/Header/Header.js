@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Button } from '@material-ui/core';
+import { AppBar, Toolbar } from '@material-ui/core';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import styles from './HeaderStyles';
 import { ThemeContext } from '../../../themeContext';
 
@@ -24,9 +25,7 @@ const Header = () => {
         <div className={classes.toolBarLeft}>
           <Link to={'/episodes'}>Episodes</Link>
           <Link to={'/characters'}>Characters</Link>
-          <Button color="inherit" onClick={handleLogout}>
-            Logout
-          </Button>
+          <ExitToAppIcon onClick={handleLogout} />
         </div>
       </Toolbar>
     </AppBar>

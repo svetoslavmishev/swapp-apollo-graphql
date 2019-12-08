@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import {
   Container,
@@ -15,9 +15,6 @@ import { ThemeContext } from '../../themeContext';
 import styles from './SignInStyles';
 
 function SignIn({ history }) {
-  // email: 'demo@st6.io'
-  // password: 'demo1234'
-
   const { currentTheme } = useContext(ThemeContext);
   const classes = styles({ currentTheme });
   const [fields, setFields] = useState({
@@ -56,20 +53,14 @@ function SignIn({ history }) {
   const hasError = error && error.message ? true : false;
 
   return (
-    <Container maxWidth="xs">
-      <Paper
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          border: '1px solid red',
-          padding: 28
-        }}
-      >
+    <Container className={classes.root} maxWidth="xl">
+      <Paper className={classes.paper}>
         <FormControl error={hasError}>
           {hasError && (
             <FormLabel component="legend">{error.message}</FormLabel>
           )}
           <Input
+            className={classes.inputs}
             id="email-component-helper"
             type="text"
             name="email"
@@ -79,6 +70,7 @@ function SignIn({ history }) {
             placeholder="email"
           />
           <Input
+            className={classes.inputs}
             id="password-component-helper"
             type="password"
             name="password"
@@ -89,7 +81,7 @@ function SignIn({ history }) {
           />
         </FormControl>
         <Button
-          className={`${classes.solidButton} ${classes.outlineButton}`}
+          className={`${classes.solidButton} ${classes.button}`}
           variant="contained"
           color="default"
           onClick={handleSubmit}

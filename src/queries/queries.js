@@ -77,3 +77,46 @@ export const MORE_CHARACTERS = gql`
     }
   }
 `;
+
+export const GET_PROFILE = gql`
+  query PersonQuery($id: ID!) {
+    person(id: $id) {
+      id
+      name
+      height
+      mass
+      image
+      homeworld {
+        name
+      }
+      species {
+        name
+      }
+      starships {
+        edges {
+          node {
+            id
+            name
+            image
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_STARSHIP = gql`
+  query STARSHIP($id: ID!) {
+    starship(id: $id) {
+      id
+      name
+      model
+      image
+      starshipClass
+      cost
+      maxAtmosphericSpeed
+      hyperdriveRating
+      crew
+    }
+  }
+`;
