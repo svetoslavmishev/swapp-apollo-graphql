@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { makeStyles } from '@material-ui/core/styles';
 import {
+  Container,
   Card,
   CardHeader,
   CardActionArea,
@@ -48,9 +49,11 @@ const Starship = () => {
 
   return (
     <>
-      <div>
-        <div>{name}</div>
-        <div>{model}</div>
+      <Container className={classes.root} maxWidth="xl">
+        <div className="flex justify-center bg-green-400">
+          <div>{name}</div>
+          <div>{model}</div>
+        </div>
         <Card className={classes.card} id={id}>
           <CardActionArea>
             <CardHeader title={name} />
@@ -74,7 +77,7 @@ const Starship = () => {
             </CardContent>
           </CardActionArea>
         </Card>
-      </div>
+      </Container>
     </>
   );
 };
