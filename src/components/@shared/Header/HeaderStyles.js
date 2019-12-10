@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/styles';
 const styles = makeStyles(theme => ({
   appBar: ({ currentTheme }) => theme.palette[currentTheme].AppBar,
   toolBar: {
+    fontFamily: 'StarWars',
+    fontSize: 24,
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',

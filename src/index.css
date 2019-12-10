@@ -582,6 +582,13 @@ video {
   height: auto;
 }
 
+@font-face {
+  font-family: 'StarWars';
+
+  src: local('StarWars'),
+  url(/assets/fonts/SFDistantGalaxy.ttf) format('truetype');
+}
+
 .container {
   width: 100%;
 }
