@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   SignIn,
-  Protected,
   Episodes,
   EpisodeDetails,
   Characters,
@@ -46,10 +45,6 @@ const routesConfig = [
     path: '/starships/:starshipId',
     exact: true,
     component: Starship
-  },
-  {
-    path: '/protected',
-    component: Protected
   },
   {
     path: '*',

@@ -586,7 +586,7 @@ video {
   font-family: 'StarWars';
 
   src: local('StarWars'),
-  url(/assets/fonts/SFDistantGalaxy.ttf) format('truetype');
+    url(/assets/fonts/SFDistantGalaxy.ttf) format('truetype');
 }
 
 .container {

@@ -12,17 +12,20 @@ const styles = makeStyles(theme => ({
   },
   toolBarLeft: {
     display: 'flex',
+    flexWrap: 'wrap',
     justifyContent: 'flex-end',
     alignItems: 'center',
     width: '100%',
     '& a': {
       padding: 8,
-      textDecoration: 'none',
       color: ({ currentTheme }) => theme.palette[currentTheme].AppBar.fontColor
     },
-    '&:hover svg': {
+    '&:hover a, svg': {
       cursor: 'pointer'
     }
+  },
+  logo: {
+    color: theme.palette.commonColors.yellow
   }
 }));
 

@@ -14,14 +14,28 @@ const styles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    padding: 30
+    padding: 30,
+    background: theme.palette.dark.textColor
   },
   inputs: ({ currentTheme }) => theme.palette[currentTheme].Inputs,
-  button: { margin: 'auto', width: 0 },
+  button: {
+    fontWeight: 600,
+    margin: 'auto',
+    width: 0,
+    color: theme.palette.commonColors.yellow,
+    '&:hover': {
+      color: 'black',
+      background: theme.palette.commonColors.yellow
+    }
+  },
   solidButton: ({ currentTheme }) => theme.palette[currentTheme].SolidButtons,
-  progress: ({ currentTheme }) => ({
-    background: theme.palette[currentTheme].backgroundColor
-  })
+  logo: {
+    fontFamily: 'StarWars',
+    color: theme.palette.commonColors.yellow,
+    fontSize: '8vw',
+    margin: 'auto',
+    width: '100%'
+  }
 }));
 
 export default styles;

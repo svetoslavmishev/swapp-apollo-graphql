@@ -6,13 +6,13 @@ import {
   FormLabel,
   Input,
   Paper,
-  Button,
-  LinearProgress
+  Button
 } from '@material-ui/core';
 
 import { SIGN_IN } from '../../queries/queries';
 import { ThemeContext } from '../../themeContext';
 import styles from './SignInStyles';
+import Loading from '../shared/Loading/Loading';
 
 function SignIn({ history }) {
   const { currentTheme } = useContext(ThemeContext);
@@ -41,54 +41,49 @@ function SignIn({ history }) {
     setFields({ email: '', password: '' });
   };
 
-  if (loading)
-    return (
-      <LinearProgress
-        classes={{
-          bar: classes.progress
-        }}
-      />
-    );
+  if (loading) return <Loading />;
 
   const hasError = error && error.message ? true : false;
 
   return (
     <Container className={classes.root} maxWidth="xl">
-      <Paper className={classes.paper}>
-        <FormControl error={hasError}>
-          {hasError && (
-            <FormLabel component="legend">{error.message}</FormLabel>
-          )}
-          <Input
-            className={classes.inputs}
-            id="email-component-helper"
-            type="text"
-            name="email"
-            value={fields.email}
-            onChange={handleChange}
-            aria-describedby="component-helper-text"
-            placeholder="email"
-          />
-          <Input
-            className={classes.inputs}
-            id="password-component-helper"
-            type="password"
-            name="password"
-            value={fields.password}
-            onChange={handleChange}
-            aria-describedby="component-helper-text"
-            placeholder="password"
-          />
-        </FormControl>
-        <Button
-          className={`${classes.solidButton} ${classes.button}`}
-          variant="contained"
-          color="default"
-          onClick={handleSubmit}
-        >
-          Submit
-        </Button>
-      </Paper>
+      <div className="md:w-1/3">
+        <div className={`${classes.logo} text-center`}>SWAPP</div>
+        <Paper className={classes.paper}>
+          <FormControl error={hasError}>
+            {hasError && (
+              <FormLabel component="legend">{error.message}</FormLabel>
+            )}
+            <Input
+              className={`${classes.inputs} mt-2 mb-2`}
+              id="email-component-helper"
+              type="text"
+              name="email"
+              value={fields.email}
+              onChange={handleChange}
+              aria-describedby="component-helper-text"
+              placeholder="email"
+            />
+            <Input
+              className={`${classes.inputs} mt-2 mb-2`}
+              id="password-component-helper"
+              type="password"
+              name="password"
+              value={fields.password}
+              onChange={handleChange}
+              aria-describedby="component-helper-text"
+              placeholder="password"
+            />
+          </FormControl>
+          <Button
+            className={`${classes.solidButton} ${classes.button}`}
+            variant="contained"
+            onClick={handleSubmit}
+          >
+            Login
+          </Button>
+        </Paper>
+      </div>
     </Container>
   );
 }
