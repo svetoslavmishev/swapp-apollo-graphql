@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Header, EpisodeCard } from '../index';
 import { ALL_EPISODES } from '../../queries/queries';
+import { ThemeContext } from '../../themeContext';
+import styles from './EpisodesStyles';
 
 const Episodes = () => {
+  const { currentTheme } = useContext(ThemeContext);
+  const classes = styles({ currentTheme });
+
   const { data, loading, error } = useQuery(ALL_EPISODES, {
     variables: { first: 20 }
   });
@@ -11,14 +16,7 @@ const Episodes = () => {
   return (
     <div>
       <Header />
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-between',
-          flexWrap: 'wrap',
-          justifyContent: 'center'
-        }}
-      >
+      <div className={classes.root}>
         {data &&
           data.allEpisodes.edges.map(episode => (
             <EpisodeCard key={episode.node.id} episode={episode.node} />

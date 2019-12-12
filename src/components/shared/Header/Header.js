@@ -22,7 +22,7 @@ const Header = () => {
           className={`${classes.toolBar} ${classes.logo}`}
           onClick={toggleTheme}
         >
-          SWAPP
+          {process.env.REACT_APP_TITLE}
         </div>
         <div className={classes.toolBarLeft}>
           <Link to={'/episodes'}>Episodes</Link>

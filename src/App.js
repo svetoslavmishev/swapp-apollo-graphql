@@ -7,7 +7,7 @@ import Routes from './routes/routes';
 import { AUTH } from './queries/queries';
 
 const App = () => {
-  const [currentTheme, setCurrentTheme] = useState('dark');
+  const [currentTheme, setCurrentTheme] = useState('light');
   const { data } = useQuery(AUTH);
 
   const toggleTheme = () => {

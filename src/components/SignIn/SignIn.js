@@ -23,11 +23,14 @@ function SignIn({ history }) {
   });
   const client = useApolloClient();
   const [signIn, { loading, error }] = useMutation(SIGN_IN, {
-    onCompleted({ signIn: { token } }) {
+    onCompleted: ({ signIn: { token } }) => {
       localStorage.setItem('token', token);
       client.writeData({ data: { isAuthenticated: true } });
       history.push('/episodes');
       setFields({ email: '', password: '' });
+    },
+    onError: e => {
+      console.log(e);
     }
   });
 
@@ -48,7 +51,9 @@ function SignIn({ history }) {
   return (
     <Container className={classes.root} maxWidth="xl">
       <div className="md:w-1/3">
-        <div className={`${classes.logo} text-center`}>SWAPP</div>
+        <div className={`${classes.logo} text-center`}>
+          {process.env.REACT_APP_TITLE}
+        </div>
         <Paper className={classes.paper}>
           <FormControl error={hasError}>
             {hasError && (
@@ -64,6 +69,8 @@ function SignIn({ history }) {
               aria-describedby="component-helper-text"
               placeholder="email"
             />
+          </FormControl>
+          <FormControl>
             <Input
               className={`${classes.inputs} mt-2 mb-2`}
               id="password-component-helper"
@@ -79,6 +86,7 @@ function SignIn({ history }) {
             className={`${classes.solidButton} ${classes.button}`}
             variant="contained"
             onClick={handleSubmit}
+            disabled={!fields.email && !fields.password}
           >
             Login
           </Button>

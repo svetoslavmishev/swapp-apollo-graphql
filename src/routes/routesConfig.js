@@ -1,13 +1,4 @@
-import React from 'react';
-import {
-  SignIn,
-  Episodes,
-  EpisodeDetails,
-  Characters,
-  CharProfile,
-  Starship,
-  Error
-} from '../components';
+import React, { lazy } from 'react';
 import { Redirect } from 'react-router-dom';
 
 const routesConfig = [
@@ -19,36 +10,40 @@ const routesConfig = [
   {
     path: '/signin',
     exact: true,
-    component: SignIn
+    component: lazy(() => import('../components/SignIn/SignIn'))
   },
   {
     path: '/episodes',
     exact: true,
-    component: Episodes
+    component: lazy(() => import('../components/Episodes/Episodes'))
   },
   {
     path: '/episodes/:episodeId',
     exact: true,
-    component: EpisodeDetails
+    component: lazy(() =>
+      import('../components/Episodes/EpisodeDetails/EpisodeDetails')
+    )
   },
   {
     path: '/characters',
     exact: true,
-    component: Characters
+    component: lazy(() => import('../components/Characters/Characters'))
   },
   {
     path: '/characters/:characterId',
     exact: true,
-    component: CharProfile
+    component: lazy(() =>
+      import('../components/Characters/CharProfile/CharProfile')
+    )
   },
   {
     path: '/starships/:starshipId',
     exact: true,
-    component: Starship
+    component: lazy(() => import('../components/Starship/Starship'))
   },
   {
     path: '*',
-    component: Error
+    component: lazy(() => import('../components/Error/Error'))
   }
 ];
 
