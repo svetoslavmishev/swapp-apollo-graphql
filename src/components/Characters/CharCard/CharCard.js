@@ -1,60 +1,37 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
+import { Paper, Typography, ButtonBase } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  paper: {
-    margin: 'auto',
-    maxWidth: 500
-  },
-  image: {
-    width: 128,
-    height: 128
-  },
-  img: {
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%'
-  }
-}));
+import { ThemeContext } from '../../../themeContext';
+import styles from './CharCardStyles';
 
 const CharCard = ({ chars: { id, image, name } }) => {
-  const classes = useStyles();
+  const { currentTheme } = useContext(ThemeContext);
+  const classes = styles({ currentTheme });
   const history = useHistory();
 
   return (
-    <div className={classes.root}>
-      <Paper
-        className={classes.paper}
-        onClick={() => history.push(`/characters/${id}`)}
-      >
-        <Grid container spacing={2}>
-          <Grid item>
-            <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src={image} />
-            </ButtonBase>
-          </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
-                  {name}
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Paper>
-    </div>
+    <Paper
+      className={`flex ${classes.paper}`}
+      onClick={() => history.push(`/characters/${id}`)}
+    >
+      <div>
+        <ButtonBase className={classes.image}>
+          <img className={classes.img} alt="hero" src={image} />
+        </ButtonBase>
+      </div>
+      <div className="w-full flex justify-center items-center">
+        <Typography className={classes.charTitle}>{name}</Typography>
+      </div>
+    </Paper>
   );
+};
+
+CharCard.propTypes = {
+  id: PropTypes.string,
+  image: PropTypes.string,
+  name: PropTypes.string
 };
 
 export default CharCard;

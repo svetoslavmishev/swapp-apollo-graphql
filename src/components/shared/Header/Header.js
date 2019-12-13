@@ -24,6 +24,7 @@ const Header = () => {
         >
           {process.env.REACT_APP_TITLE}
         </div>
+        {/* TODO: Add icon menu on mobile */}
         <div className={classes.toolBarLeft}>
           <Link to={'/episodes'}>Episodes</Link>
           <Link to={'/characters'}>Characters</Link>

@@ -24,7 +24,7 @@ const styles = makeStyles(theme => ({
     width: 0,
     color: theme.palette.commonColors.yellow,
     '&:hover': {
-      color: 'black',
+      color: '#000000',
       background: theme.palette.commonColors.yellow
     }
   },

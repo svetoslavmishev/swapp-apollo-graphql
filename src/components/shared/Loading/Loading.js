@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Typography } from '@material-ui/core';
 import { LinearProgress } from '@material-ui/core';
 import { ThemeContext } from '../../../themeContext';
-import { textAlign } from '@material-ui/system';
 import styles from './LoadingStyles';
 
 function Loading() {

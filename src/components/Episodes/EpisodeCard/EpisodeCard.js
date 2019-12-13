@@ -1,5 +1,4 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   Card,
@@ -9,19 +8,12 @@ import {
   Typography
 } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
-  card: {
-    maxWidth: 300,
-    margin: 30
-  },
-  media: {
-    height: 0,
-    paddingTop: '100%'
-  }
-}));
+import { ThemeContext } from '../../../themeContext';
+import styles from './EpisodesCardStyles';
 
 const EpisodeCard = ({ episode: { id, image, title, openingCrawl } }) => {
-  const classes = useStyles();
+  const { currentTheme } = useContext(ThemeContext);
+  const classes = styles({ currentTheme });
   const history = useHistory();
 
   return (
@@ -32,7 +24,7 @@ const EpisodeCard = ({ episode: { id, image, title, openingCrawl } }) => {
       <CardActionArea>
         <CardMedia className={classes.media} image={image} title={title} />
         <CardContent>
-          <Typography gutterBottom variant="h4" component="h2">
+          <Typography classes={{ root: classes.title }} variant="h6">
             {title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">

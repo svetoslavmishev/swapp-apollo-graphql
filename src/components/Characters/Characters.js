@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Button } from '@material-ui/core';
 import { Header, CharCard } from '../index';
 import { MORE_CHARACTERS } from '../../queries/queries';
 
+import { ThemeContext } from '../../themeContext';
+import styles from './CharactersStyles';
+
 const Characters = () => {
+  const { currentTheme } = useContext(ThemeContext);
+  const classes = styles({ currentTheme });
   const { data, loading, error, fetchMore } = useQuery(MORE_CHARACTERS);
 
   const loadMore = () => {
@@ -33,18 +38,26 @@ const Characters = () => {
   if (error) return null;
 
   return (
-    <div>
+    <>
       <Header />
-      <div>
-        {data &&
-          data.allPeople.edges.map(char => {
-            return <CharCard key={char.node.id} chars={char.node} />;
-          })}
+      <div className={classes.root}>
+        <div className="flex flex-wrap justify-around p-4">
+          {data &&
+            data.allPeople.edges.map(char => {
+              return <CharCard key={char.node.id} chars={char.node} />;
+            })}
+        </div>
+        <div className="flex justify-center">
+          <Button
+            className={classes.button}
+            variant="contained"
+            onClick={loadMore}
+          >
+            Load more
+          </Button>
+        </div>
       </div>
-      <Button variant="contained" onClick={loadMore}>
-        Load more
-      </Button>
-    </div>
+    </>
   );
 };
 

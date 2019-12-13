@@ -4,10 +4,10 @@ import { createMuiTheme } from '@material-ui/core/styles';
 export const themes = createMuiTheme({
   palette: {
     commonColors: {
-      yellow: '#FFE300',
-      lightBlue: '​#4BD5EE',
       black: '​#000',
-      white: '#FFF'
+      white: '#FFF',
+      yellow: '#FFE300',
+      lightBlue: '​#4BD5EE'
     },
     light: {
       backgroundColor: '#E8EAED',

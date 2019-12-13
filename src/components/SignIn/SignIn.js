@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import {
   Container,
@@ -95,5 +96,9 @@ function SignIn({ history }) {
     </Container>
   );
 }
+
+SignIn.propTypes = {
+  history: PropTypes.object
+};
 
 export default SignIn;
