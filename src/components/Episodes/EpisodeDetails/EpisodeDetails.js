@@ -1,68 +1,37 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
+import { useHistory } from 'react-router-dom';
 import {
-  makeStyles,
-  useTheme,
   Button,
   Card,
   CardContent,
   Typography,
   CardMedia
 } from '@material-ui/core';
-import { Header, CharCard } from '../../index';
-import { GET_EPISODE } from '../../../queries/queries';
 
-const useStyles = makeStyles(theme => ({
-  card: {
-    display: 'flex',
-    margin: 10
-  },
-  details: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  content: {
-    flex: '1 0 auto'
-  },
-  cover: {
-    width: 151
-  },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1)
-  },
-  playIcon: {
-    height: 38,
-    width: 38
-  }
-}));
+import { Header, CharCard } from '../../index';
+import Loading from '../../shared/Loading/Loading';
+import { GET_EPISODE } from '../../../queries/queries';
+import { ThemeContext } from '../../../themeContext';
+import styles from './EpisodeDetailsStyles';
 
 const EpisodeDetails = () => {
   const { episodeId } = useParams();
-  const classes = useStyles();
-  const theme = useTheme();
-
+  const { currentTheme } = useContext(ThemeContext);
+  const classes = styles({ currentTheme });
+  const history = useHistory();
   const { data, loading, error } = useQuery(GET_EPISODE, {
     variables: { id: episodeId }
   });
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   if (error) return null;
 
   return (
-    <div>
+    <>
       <Header />
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          padding: 50
-        }}
-      >
+      <div className={classes.cardContainer}>
         <Card className={classes.card}>
           <CardMedia
             className={classes.cover}
@@ -71,46 +40,56 @@ const EpisodeDetails = () => {
           />
           <div className={classes.details}>
             <CardContent className={classes.content}>
-              <Typography component="h4" variant="h4">
+              <Typography classes={{ root: classes.episodeTitle }} variant="h5">
                 {data.episode.title}
               </Typography>
             </CardContent>
-            <div className={classes.controls}></div>
           </div>
         </Card>
         <Card className={classes.card}>
           <div className={classes.details}>
             <CardContent>
-              <Typography>{data.episode.openingCrawl}</Typography>
-              <Typography>Director: {data.episode.director}</Typography>
-              <Typography>Release date: {data.episode.releaseDate}</Typography>
+              <Typography classes={{ root: classes.description }}>
+                {data.episode.openingCrawl}
+              </Typography>
+              <Typography classes={{ root: classes.description }}>
+                Director:{' '}
+                <span className={classes.descriptionResult}>
+                  {data.episode.director}
+                </span>
+              </Typography>
+              <Typography classes={{ root: classes.description }}>
+                Release date:
+                <span className={classes.descriptionResult}>
+                  {data.episode.releaseDate}
+                </span>
+              </Typography>
             </CardContent>
           </div>
         </Card>
-        <Card className={classes.card}>
-          <div className={classes.details}>
-            <CardContent
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'space-between'
-              }}
-            >
-              {data &&
-                data.episode.people.edges.map(char => {
-                  return <CharCard key={char.node.id} chars={char.node} />;
-                })}
-            </CardContent>
-          </div>
-        </Card>
+        <CardContent className={classes.characters}>
+          {data &&
+            data.episode.people.edges.map(char => {
+              return (
+                <CharCard
+                  key={char.node.id}
+                  chars={char.node}
+                  onClick={() => history.push(`/characters/${char.node.id}`)}
+                />
+              );
+            })}
+        </CardContent>
+        <div className="flex justify-center">
+          <Button
+            className={classes.button}
+            variant="contained"
+            //onClick={loadMore}
+          >
+            Load more
+          </Button>
+        </div>
       </div>
-      <Button
-        variant="contained"
-        //onClick={loadMore}
-      >
-        Load more
-      </Button>
-    </div>
+    </>
   );
 };
 

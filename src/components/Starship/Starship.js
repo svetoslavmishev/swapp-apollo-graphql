@@ -12,6 +12,8 @@ import {
   Typography
 } from '@material-ui/core';
 import { GET_STARSHIP } from '../../queries/queries';
+import { Header } from '../index';
+import Loading from '../shared/Loading/Loading';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -21,6 +23,12 @@ const useStyles = makeStyles(theme => ({
   media: {
     height: 0,
     paddingTop: '100%'
+  },
+  title: {
+    fontFamily: 'StarWars',
+    '& div:last-child()': {
+      fontSize: 14
+    }
   }
 }));
 
@@ -31,7 +39,7 @@ const Starship = () => {
   });
   const classes = useStyles();
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   if (error) return null;
   const {
     starship: {
@@ -49,34 +57,49 @@ const Starship = () => {
 
   return (
     <>
+      <Header />
       <Container className={classes.root} maxWidth="xl">
-        <div className="flex justify-center bg-green-400">
+        <div className={`text-center text-3xl p-4 ${classes.title}`}>
           <div>{name}</div>
-          <div>{model}</div>
+          <div>({model})</div>
         </div>
-        <Card className={classes.card} id={id}>
-          <CardActionArea>
-            <CardHeader title={name} />
-            <CardMedia className={classes.media} image={image} title={name} />
-            <CardContent>
-              <Typography variant="body2" component="p">
-                Class: {starshipClass}
-              </Typography>
-              <Typography variant="body2" component="p">
-                Cost: {cost} credits
-              </Typography>
-              <Typography variant="body2" component="p">
-                Crew: {crew}
-              </Typography>
-              <Typography variant="body2" component="p">
-                Max Atmospheric Speed: {maxAtmosphericSpeed}
-              </Typography>
-              <Typography variant="body2" component="p">
-                Hyperdrive Rating: {hyperdriveRating}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
+        <div className="flex flex-wrap justify-center">
+          <Card className={classes.card} id={id}>
+            <CardActionArea>
+              <CardHeader title={name} />
+              <CardMedia className={classes.media} image={image} title={name} />
+              <CardContent>
+                <Typography variant="body2" component="p">
+                  Class: {starshipClass}
+                </Typography>
+                <Typography variant="body2" component="p">
+                  Cost: {cost} credits
+                </Typography>
+                <Typography variant="body2" component="p">
+                  Crew: {crew}
+                </Typography>
+                <Typography variant="body2" component="p">
+                  Max Atmospheric Speed: {maxAtmosphericSpeed}
+                </Typography>
+                <Typography variant="body2" component="p">
+                  Hyperdrive Rating: {hyperdriveRating}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+          <div>
+            <Card className={classes.card} id={id}>
+              <CardActionArea>
+                <CardHeader title="Compared to Starships Class Max" />
+                <CardMedia
+                  className={classes.media}
+                  image={image}
+                  title={name}
+                />
+              </CardActionArea>
+            </Card>
+          </div>
+        </div>
       </Container>
     </>
   );

@@ -1,105 +1,84 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { GET_PROFILE } from '../../../queries/queries';
 import { Card, CardMedia, CardContent, Typography } from '@material-ui/core';
-import { Header } from '../../index';
 
-const useStyles = makeStyles({
-  card: {
-    minWidth: 200,
-    maxWidth: 300
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)'
-  },
-  media: {
-    height: 0,
-    paddingTop: '75%'
-  },
-  title: {
-    fontSize: 14
-  },
-  pos: {
-    marginBottom: 12
-  }
-});
+import { Header, CharCard } from '../../index';
+import Loading from '../../shared/Loading/Loading';
+import { ThemeContext } from '../../../themeContext';
+import styles from './CharProfileStyles';
 
 const CharProfile = () => {
-  const classes = useStyles();
+  const { currentTheme } = useContext(ThemeContext);
+  const classes = styles({ currentTheme });
   const { characterId } = useParams();
   const history = useHistory();
 
   const { data, loading, error } = useQuery(GET_PROFILE, {
     variables: { id: characterId }
   });
-  console.log(data);
-  if (loading) return <div>Loading...</div>;
+
+  if (loading) return <Loading />;
   if (error) return null;
+
   return (
     <>
       <Header />
-      <div className={classes.root}>
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography variant="h5" component="h2">
-              {data.person.name}
-            </Typography>
-            <CardMedia
-              className={classes.media}
-              image={data.person.image}
-              title={data.person.name}
-            />
-            <Typography variant="body2" component="p">
-              Height: {data.person.height}
-            </Typography>
-            <Typography variant="body2" component="p">
-              Weight: {data.person.mass}
-            </Typography>
-            <Typography variant="body2" component="p">
-              Species: {data.person.species.name}
-            </Typography>
-            <Typography variant="body2" component="p">
-              Home World: {data.person.homeworld.name}
-            </Typography>
-          </CardContent>
-        </Card>
-        {data.person.starships.edges.map(ship => {
-          return (
-            <Card
-              key={ship.node.id}
-              onClick={() => history.push(`/starships/${ship.node.id}`)}
-            >
-              <CardContent
-                style={{
-                  display: 'flex',
-                  maxWidth: 200,
-                  borderRadius: 10,
-                  alignItems: 'center',
-                  margin: 6,
-                  border: '1px solid red'
-                }}
+      <div div className={classes.root}>
+        <div className={`text-center text-3xl p-4 ${classes.title}`}>
+          {data.person.name}
+        </div>
+        <div className="flex justify-center p-4">
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography
+                className={`text-center ${classes.title}`}
+                variant="h6"
+                component="h6"
               >
-                <CardMedia
-                  style={{
-                    width: 60,
-                    height: 60,
-                    borderRadius: 10
-                  }}
-                  image={ship.node.image}
-                  title={ship.node.name}
-                />
-                <Typography variant="body2" component="p">
-                  {ship.node.name}
-                </Typography>
-              </CardContent>
-            </Card>
-          );
-        })}
+                {data.person.name}
+              </Typography>
+              <CardMedia
+                className={classes.media}
+                image={data.person.image}
+                title={data.person.name}
+              />
+              <Typography variant="body2" component="p">
+                Height: {data.person.height}
+              </Typography>
+              <Typography variant="body2" component="p">
+                Weight: {data.person.mass}
+              </Typography>
+              <Typography variant="body2" component="p">
+                Species: {data.person.species.name}
+              </Typography>
+              <Typography variant="body2" component="p">
+                Home World: {data.person.homeworld.name}
+              </Typography>
+            </CardContent>
+          </Card>
+
+          <div className="m-10">
+            <div className={classes.shipsTitle}>Piloted starsShips</div>
+            {data.person.starships.edges.length > 0 ? (
+              data.person.starships.edges.map(ship => {
+                return (
+                  <CharCard
+                    key={ship.node.id}
+                    chars={ship.node}
+                    onClick={() => history.push(`/starships/${ship.node.id}`)}
+                  />
+                );
+              })
+            ) : (
+              <div className="text-center text-yellow-500">
+                No starships found
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </>
   );

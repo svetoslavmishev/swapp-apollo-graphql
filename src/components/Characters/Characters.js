@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
-import { Header, CharCard } from '../index';
-import { MORE_CHARACTERS } from '../../queries/queries';
 
+import { Header, CharCard } from '../index';
+import Loading from '../shared/Loading/Loading';
+import { MORE_CHARACTERS } from '../../queries/queries';
 import { ThemeContext } from '../../themeContext';
 import styles from './CharactersStyles';
 
@@ -11,6 +13,7 @@ const Characters = () => {
   const { currentTheme } = useContext(ThemeContext);
   const classes = styles({ currentTheme });
   const { data, loading, error, fetchMore } = useQuery(MORE_CHARACTERS);
+  const history = useHistory();
 
   const loadMore = () => {
     fetchMore({
@@ -34,7 +37,7 @@ const Characters = () => {
     });
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   if (error) return null;
 
   return (
@@ -44,7 +47,13 @@ const Characters = () => {
         <div className="flex flex-wrap justify-around p-4">
           {data &&
             data.allPeople.edges.map(char => {
-              return <CharCard key={char.node.id} chars={char.node} />;
+              return (
+                <CharCard
+                  key={char.node.id}
+                  chars={char.node}
+                  onClick={() => history.push(`/characters/${char.node.id}`)}
+                />
+              );
             })}
         </div>
         <div className="flex justify-center">

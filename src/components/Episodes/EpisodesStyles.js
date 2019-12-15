@@ -3,9 +3,8 @@ import { makeStyles } from '@material-ui/styles';
 const styles = makeStyles(theme => ({
   root: {
     display: 'flex',
-    justifyContent: 'flex-between',
-    flexWrap: 'wrap',
     justifyContent: 'center',
+    flexWrap: 'wrap',
     background: ({ currentTheme }) =>
       theme.palette[currentTheme].backgroundColor
   }
