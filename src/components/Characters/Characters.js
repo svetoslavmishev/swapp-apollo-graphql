@@ -3,8 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 
-import { Header, CharCard } from '../index';
-import Loading from '../shared/Loading/Loading';
+import { Header, CharCard, Loading } from '../index';
 import { MORE_CHARACTERS } from '../../queries/queries';
 import { ThemeContext } from '../../themeContext';
 import styles from './CharactersStyles';
@@ -44,7 +43,7 @@ const Characters = () => {
     <>
       <Header />
       <div className={classes.root}>
-        <div className="flex flex-wrap justify-around p-4">
+        <div className="flex flex-wrap flex-auto justify-around p-4">
           {data &&
             data.allPeople.edges.map(char => {
               return (

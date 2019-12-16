@@ -10,10 +10,10 @@ import {
   Button
 } from '@material-ui/core';
 
+import { Loading } from '../index';
 import { SIGN_IN } from '../../queries/queries';
 import { ThemeContext } from '../../themeContext';
 import styles from './SignInStyles';
-import Loading from '../shared/Loading/Loading';
 
 function SignIn({ history }) {
   const { currentTheme } = useContext(ThemeContext);

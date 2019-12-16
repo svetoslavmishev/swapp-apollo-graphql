@@ -38,9 +38,14 @@ const styles = makeStyles(theme => ({
   description: {
     color: ({ currentTheme }) => theme.palette[currentTheme].textColor
   },
-  descriptionResult: {
-    color: ({ currentTheme }) =>
-      theme.palette[currentTheme].PrimaryHeading.fontColor
+  descriptionDetails: {
+    '& span:nth-child(even)': {
+      color: theme.palette.commonColors.lightBlue
+    },
+    '& span:nth-child(odd)': {
+      color: ({ currentTheme }) =>
+        theme.palette[currentTheme].PrimaryHeading.fontColor
+    }
   },
   button: {
     fontFamily: 'StarWars',

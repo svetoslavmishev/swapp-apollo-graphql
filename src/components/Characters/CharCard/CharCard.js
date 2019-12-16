@@ -1,6 +1,5 @@
-import React, { useContext, useCallback } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-//import { useHistory } from 'react-router-dom';
 import { Paper, Typography, ButtonBase } from '@material-ui/core';
 
 import { ThemeContext } from '../../../themeContext';
@@ -11,13 +10,13 @@ const CharCard = ({ chars: { id, image, name }, onClick }) => {
   const classes = styles({ currentTheme });
 
   return (
-    <Paper className={`flex ${classes.paper}`} onClick={onClick}>
+    <Paper className={`flex  ${classes.paper}`} onClick={onClick}>
       <div>
         <ButtonBase className={classes.image}>
           <img className={classes.img} alt="hero" src={image} />
         </ButtonBase>
       </div>
-      <div className="w-full flex justify-center items-center">
+      <div className="flex w-full items-center pl-4">
         <Typography className={classes.charTitle}>{name}</Typography>
       </div>
     </Paper>

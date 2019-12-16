@@ -1,13 +1,13 @@
 import { createContext } from 'react';
 import { createMuiTheme } from '@material-ui/core/styles';
 
-export const themes = createMuiTheme({
+export const theme = createMuiTheme({
   palette: {
     commonColors: {
       black: '​#000',
       white: '#FFF',
       yellow: '#FFE300',
-      lightBlue: '​#4BD5EE'
+      lightBlue: '#4BD5EE'
     },
     light: {
       backgroundColor: '#E8EAED',

@@ -10,8 +10,7 @@ import {
   CardMedia
 } from '@material-ui/core';
 
-import { Header, CharCard } from '../../index';
-import Loading from '../../shared/Loading/Loading';
+import { Header, CharCard, Loading } from '../../index';
 import { GET_EPISODE } from '../../../queries/queries';
 import { ThemeContext } from '../../../themeContext';
 import styles from './EpisodeDetailsStyles';
@@ -52,17 +51,13 @@ const EpisodeDetails = () => {
               <Typography classes={{ root: classes.description }}>
                 {data.episode.openingCrawl}
               </Typography>
-              <Typography classes={{ root: classes.description }}>
-                Director:{' '}
-                <span className={classes.descriptionResult}>
-                  {data.episode.director}
-                </span>
+              <Typography className={classes.descriptionDetails}>
+                <span>Director: </span>
+                <span>{data.episode.director}</span>
               </Typography>
-              <Typography classes={{ root: classes.description }}>
-                Release date:
-                <span className={classes.descriptionResult}>
-                  {data.episode.releaseDate}
-                </span>
+              <Typography className={classes.descriptionDetails}>
+                <span>Release date:</span>
+                <span>{data.episode.releaseDate}</span>
               </Typography>
             </CardContent>
           </div>
@@ -71,6 +66,7 @@ const EpisodeDetails = () => {
           {data &&
             data.episode.people.edges.map(char => {
               return (
+                // TODO: add to share component
                 <CharCard
                   key={char.node.id}
                   chars={char.node}
@@ -79,6 +75,7 @@ const EpisodeDetails = () => {
               );
             })}
         </CardContent>
+        {/* TOODO: Load more characters on button click */}
         <div className="flex justify-center">
           <Button
             className={classes.button}

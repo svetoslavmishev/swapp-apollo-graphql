@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
-import { Header, EpisodeCard } from '../index';
-import Loading from '../../components/shared/Loading/Loading';
+import { Header, EpisodeCard, Loading } from '../index';
 import { ALL_EPISODES } from '../../queries/queries';
 import { ThemeContext } from '../../themeContext';
 import styles from './EpisodesStyles';

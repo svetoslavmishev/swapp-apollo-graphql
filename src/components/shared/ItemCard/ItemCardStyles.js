@@ -7,8 +7,9 @@ const styles = makeStyles(theme => ({
       theme.palette[currentTheme].backgroundColor
   },
   card: {
-    minWidth: 180,
-    maxWidth: 260,
+    minWidth: 240,
+    maxWidth: 280,
+    maxHeight: 450,
     margin: 10,
     background: ({ currentTheme }) =>
       theme.palette[currentTheme].Cards.backgroundColor,
@@ -23,16 +24,27 @@ const styles = makeStyles(theme => ({
   },
   media: {
     height: 0,
-    paddingTop: '75%'
+    paddingTop: '100%',
+    margin: '10px 0'
   },
   shipsTitle: {
     fontFamily: 'StarWars',
     textAlign: 'center',
     fontSize: 20,
     margin: 10,
-    color: theme.palette.commonColors.lightBlue,
+    color: ({ currentTheme }) =>
+      theme.palette[currentTheme].PrimaryHeading.fontColor,
     borderBottom: ({ currentTheme }) =>
       `1px solid ${theme.palette[currentTheme].Cards.borderColor}`
+  },
+  descriptionDetails: {
+    '& span:nth-child(even)': {
+      color: theme.palette.commonColors.lightBlue
+    },
+    '& span:nth-child(odd)': {
+      color: ({ currentTheme }) =>
+        theme.palette[currentTheme].PrimaryHeading.fontColor
+    }
   }
 }));
 
