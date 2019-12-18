@@ -30,7 +30,7 @@ export const ALL_EPISODES = gql`
 `;
 
 export const GET_EPISODE = gql`
-  query EpisodeQuery($id: ID!) {
+  query EpisodeQuery($id: ID!, $cursor: String) {
     episode(id: $id) {
       title
       episodeId
@@ -38,12 +38,13 @@ export const GET_EPISODE = gql`
       image
       director
       releaseDate
-      people {
+      people(first: 5, after: $cursor) {
         totalCount
         pageInfo {
           hasNextPage
           endCursor
         }
+        # TODO: Export as fragment
         edges {
           node {
             id
@@ -93,6 +94,7 @@ export const GET_PROFILE = gql`
         name
       }
       starships {
+        # TODO: Export as fragment
         edges {
           node {
             id

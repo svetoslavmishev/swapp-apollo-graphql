@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 
 import { Header, CharCard, Loading } from '../../index';
-import { GET_EPISODE } from '../../../queries/queries';
+import { GET_EPISODE, MORE_CHARACTERS } from '../../../queries/queries';
 import { ThemeContext } from '../../../themeContext';
 import styles from './EpisodeDetailsStyles';
 
@@ -20,9 +20,33 @@ const EpisodeDetails = () => {
   const { currentTheme } = useContext(ThemeContext);
   const classes = styles({ currentTheme });
   const history = useHistory();
-  const { data, loading, error } = useQuery(GET_EPISODE, {
+  const { data, loading, error, fetchMore } = useQuery(GET_EPISODE, {
     variables: { id: episodeId }
   });
+  const hasNextPage = data && data.episode.people.pageInfo.hasNextPage;
+
+  const loadMore = () => {
+    fetchMore({
+      variables: { cursor: data.episode.people.pageInfo.endCursor },
+      updateQuery: (previousResult, { fetchMoreResult: { episode } }) => {
+        const newEdges = episode.people.edges;
+        const pageInfo = episode.people.pageInfo;
+
+        return newEdges.length
+          ? {
+              episode: {
+                ...episode,
+                people: {
+                  __typename: previousResult.episode.people.__typename,
+                  edges: [...previousResult.episode.people.edges, ...newEdges],
+                  pageInfo
+                }
+              }
+            }
+          : previousResult;
+      }
+    });
+  };
 
   if (loading) return <Loading />;
   if (error) return null;
@@ -76,15 +100,17 @@ const EpisodeDetails = () => {
             })}
         </CardContent>
         {/* TOODO: Load more characters on button click */}
-        <div className="flex justify-center">
-          <Button
-            className={classes.button}
-            variant="contained"
-            //onClick={loadMore}
-          >
-            Load more
-          </Button>
-        </div>
+        {hasNextPage && (
+          <div className="flex justify-center">
+            <Button
+              className={classes.button}
+              variant="contained"
+              onClick={loadMore}
+            >
+              Load more
+            </Button>
+          </div>
+        )}
       </div>
     </>
   );

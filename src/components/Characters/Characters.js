@@ -13,6 +13,7 @@ const Characters = () => {
   const classes = styles({ currentTheme });
   const { data, loading, error, fetchMore } = useQuery(MORE_CHARACTERS);
   const history = useHistory();
+  const hasNextPage = data && data.allPeople.pageInfo.hasNextPage;
 
   const loadMore = () => {
     fetchMore({
@@ -55,15 +56,17 @@ const Characters = () => {
               );
             })}
         </div>
-        <div className="flex justify-center">
-          <Button
-            className={classes.button}
-            variant="contained"
-            onClick={loadMore}
-          >
-            Load more
-          </Button>
-        </div>
+        {hasNextPage && (
+          <div className="flex justify-center">
+            <Button
+              className={classes.button}
+              variant="contained"
+              onClick={loadMore}
+            >
+              Load more
+            </Button>
+          </div>
+        )}
       </div>
     </>
   );
