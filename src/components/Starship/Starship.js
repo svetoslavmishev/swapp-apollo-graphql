@@ -1,16 +1,10 @@
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import {
-  Container,
-  Card,
-  CardHeader,
-  CardActionArea,
-  CardMedia
-} from '@material-ui/core';
+import { Container } from '@material-ui/core';
 
-import { GET_STARSHIP } from '../../queries/queries';
-import { Header, Loading, ItemCard } from '../index';
+import { GET_STARSHIP, GET_STARSHIPS_BY_CLASS } from '../../queries/queries';
+import { Header, Loading, ItemCard, StarshipRadarChart } from '../index';
 import { ThemeContext } from '../../themeContext';
 import styles from './StarshipStyles';
 
@@ -22,8 +16,21 @@ const Starship = () => {
     variables: { id: starshipId }
   });
 
+  const {
+    data: starshipsByClass,
+    loading: starshipsByClassLoading,
+    error: starshipsByClasserror
+  } = useQuery(GET_STARSHIPS_BY_CLASS, {
+    variables: {
+      starshipClass: data && data.starship && data.starship.starshipClass
+    }
+  });
+
   if (loading) return <Loading />;
+  if (starshipsByClassLoading) return <Loading />;
   if (error) return null;
+  if (starshipsByClasserror) return null;
+
   const {
     starship: {
       name,
@@ -55,19 +62,11 @@ const Starship = () => {
             maxAtmosphericSpeed={maxAtmosphericSpeed}
             hyperdriveRating={hyperdriveRating}
           />
-          {/* TOODO: Add radar chart */}
-          <div>
-            <Card className={classes.card}>
-              <CardActionArea>
-                <CardHeader title="Compared to Starships Class Max" />
-                <CardMedia
-                  className={classes.media}
-                  image={image}
-                  title={name}
-                />
-              </CardActionArea>
-            </Card>
-          </div>
+
+          <StarshipRadarChart
+            starshipsByClass={starshipsByClass}
+            starship={data.starship}
+          />
         </div>
       </Container>
     </>

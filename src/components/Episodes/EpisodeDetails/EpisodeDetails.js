@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 
 import { Header, CharCard, Loading } from '../../index';
-import { GET_EPISODE, MORE_CHARACTERS } from '../../../queries/queries';
+import { GET_EPISODE } from '../../../queries/queries';
 import { ThemeContext } from '../../../themeContext';
 import styles from './EpisodeDetailsStyles';
 

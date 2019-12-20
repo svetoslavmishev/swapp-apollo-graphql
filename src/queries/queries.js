@@ -118,7 +118,25 @@ export const GET_STARSHIP = gql`
       cost
       maxAtmosphericSpeed
       hyperdriveRating
+      maxMLPerHour
       crew
+    }
+  }
+`;
+
+export const GET_STARSHIPS_BY_CLASS = gql`
+  query AllStarships($starshipClass: String!) {
+    allStarships(first: 100, filter: { starshipClass: $starshipClass }) {
+      edges {
+        node {
+          id
+          cost
+          maxAtmosphericSpeed
+          hyperdriveRating
+          maxMLPerHour
+          crew
+        }
+      }
     }
   }
 `;
