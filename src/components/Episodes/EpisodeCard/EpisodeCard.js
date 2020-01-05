@@ -1,16 +1,16 @@
-import React, { useContext } from "react";
-import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import {
   Card,
   CardActionArea,
   CardMedia,
   CardContent,
   Typography
-} from "@material-ui/core";
+} from '@material-ui/core';
 
-import { ThemeContext } from "../../../themeContext";
-import styles from "./EpisodesCardStyles";
+import { ThemeContext } from '../../../themeContext';
+import styles from './EpisodesCardStyles';
 
 const EpisodeCard = ({ episode: { id, image, title, openingCrawl } }) => {
   const { currentTheme } = useContext(ThemeContext);
@@ -38,7 +38,7 @@ const EpisodeCard = ({ episode: { id, image, title, openingCrawl } }) => {
 };
 
 EpisodeCard.propTypes = {
-  episode: PropTypes.shapeOf({
+  episode: PropTypes.shape({
     id: PropTypes.string,
     image: PropTypes.string,
     title: PropTypes.string,
