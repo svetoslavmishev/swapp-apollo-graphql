@@ -1,49 +1,49 @@
-import React, { lazy } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { lazy } from "react";
+import { Redirect } from "react-router-dom";
 
 const routesConfig = [
   {
-    path: '/',
+    path: "/",
     exact: true,
     component: () => <Redirect to="/episodes" />
   },
   {
-    path: '/signin',
+    path: "/signin",
     exact: true,
-    component: lazy(() => import('../components/SignIn/SignIn'))
+    component: lazy(() => import("../components/SignIn/SignIn"))
   },
   {
-    path: '/episodes',
+    path: "/episodes",
     exact: true,
-    component: lazy(() => import('../components/Episodes/Episodes'))
+    component: lazy(() => import("../components/Episodes/Episodes"))
   },
   {
-    path: '/episodes/:episodeId',
+    path: "/episodes/:episodeId",
     exact: true,
     component: lazy(() =>
-      import('../components/Episodes/EpisodeDetails/EpisodeDetails')
+      import("../components/Episodes/EpisodeDetails/EpisodeDetails")
     )
   },
   {
-    path: '/characters',
+    path: "/characters",
     exact: true,
-    component: lazy(() => import('../components/Characters/Characters'))
+    component: lazy(() => import("../components/Characters/Characters"))
   },
   {
-    path: '/characters/:characterId',
+    path: "/characters/:characterId",
     exact: true,
     component: lazy(() =>
-      import('../components/Characters/CharProfile/CharProfile')
+      import("../components/Characters/CharProfile/CharProfile")
     )
   },
   {
-    path: '/starships/:starshipId',
+    path: "/starships/:starshipId",
     exact: true,
-    component: lazy(() => import('../components/Starship/Starship'))
+    component: lazy(() => import("../components/Starship/Starship"))
   },
   {
-    path: '*',
-    component: lazy(() => import('../components/Error/Error'))
+    path: "*",
+    component: lazy(() => import("../components/Error/Error"))
   }
 ];
 

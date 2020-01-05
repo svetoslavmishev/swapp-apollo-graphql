@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import RadarChart from 'react-svg-radar-chart';
-import 'react-svg-radar-chart/build/css/index.css';
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import RadarChart from "react-svg-radar-chart";
+import "react-svg-radar-chart/build/css/index.css";
 
-import { ThemeContext } from '../../../themeContext';
-import compareValues from '../../../helpers';
-import styles from './StarshipRadarChartStyles';
+import { ThemeContext } from "../../../themeContext";
+import compareValues from "../../../helpers";
+import styles from "./StarshipRadarChartStyles";
 
 const StarshipRadarChart = ({
   starship,
@@ -22,22 +22,22 @@ const StarshipRadarChart = ({
         maxAtmosphericSpeed: compareValues(
           edges,
           starship.maxAtmosphericSpeed,
-          'maxAtmosphericSpeed'
+          "maxAtmosphericSpeed"
         ),
-        cost: compareValues(edges, starship.cost, 'cost'),
+        cost: compareValues(edges, starship.cost, "cost"),
         maxMLPerHour: compareValues(
           edges,
           starship.maxMLPerHour,
-          'maxMLPerHour'
+          "maxMLPerHour"
         ),
-        crew: compareValues(edges, starship.crew, 'crew'),
+        crew: compareValues(edges, starship.crew, "crew"),
         hyperdriveRating: compareValues(
           edges,
           starship.hyperdriveRating,
-          'hyperdriveRating'
+          "hyperdriveRating"
         )
       },
-      meta: { color: '#4bd5ee' }
+      meta: { color: "#4bd5ee" }
     }
   ];
 
@@ -52,8 +52,8 @@ const StarshipRadarChart = ({
           axes: false,
           scales: 5,
           scaleProps: () => ({
-            className: 'axis',
-            fill: 'none'
+            className: "axis",
+            fill: "none"
           }),
           zoomDistance: 1.3,
           captionProps: () => ({
@@ -61,11 +61,11 @@ const StarshipRadarChart = ({
           })
         }}
         captions={{
-          maxAtmosphericSpeed: 'Max Atm. Speed',
-          maxMLPerHour: 'Max ML/h',
-          hyperdriveRating: 'HyperD Rat.',
-          crew: 'Crew',
-          cost: 'Cost'
+          maxAtmosphericSpeed: "Max Atm. Speed",
+          maxMLPerHour: "Max ML/h",
+          hyperdriveRating: "HyperD Rat.",
+          crew: "Crew",
+          cost: "Cost"
         }}
         data={data}
         size={350}
@@ -75,7 +75,14 @@ const StarshipRadarChart = ({
 };
 
 StarshipRadarChart.propTypes = {
-  starshipsByClass: PropTypes.object
+  starshipsByClass: PropTypes.object,
+  starship: PropTypes.shapeOf({
+    maxAtmosphericSpeed: PropTypes.string,
+    cost: PropTypes.string,
+    maxMLPerHour: PropTypes.string,
+    crew: PropTypes.string,
+    hyperdriveRating: PropTypes.string
+  })
 };
 
 export default StarshipRadarChart;
