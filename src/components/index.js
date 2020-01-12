@@ -11,5 +11,4 @@ export { default as CharCard } from './Characters/CharCard/CharCard';
 export { default as CharProfile } from './Characters/CharProfile/CharProfile';
 export { default as Starship } from './Starship/Starship';
 export { default as StarshipRadarChart } from './Starship/StarshipRadarChart/StarshipRadarChart';
-
 export { default as Error } from './Error/Error';

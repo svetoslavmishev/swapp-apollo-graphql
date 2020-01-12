@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Characters from '../Characters';
 import { ThemeContext, theme } from '../../../themeContext';
+import Episodes from '../Episodes';
 
-describe('<Characters />', () => {
-  it('renders <Characters /> without error', () => {
+describe('<Episodes />', () => {
+  it('renders <Episodes /> without error', () => {
     const wrapper = shallow(
       <ThemeContext.Provider value={theme}>
-        <Characters />
+        <Episodes />
       </ThemeContext.Provider>
     );
     expect(wrapper).toMatchSnapshot();
